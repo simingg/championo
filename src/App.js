@@ -1,10 +1,11 @@
 //This is the home page displayed at the '/' route
 import React, { useEffect, useState } from "react"
 import "./App.css";
-import GroupTable from "./components/Table";
-import AddTableDialog from "./components/AddTableDialog";
-import { Grid, Typography , Button} from "@mui/material";
-import AddScoreDialog from "./components/AddScoreDialog";
+import GroupTable from "./components/GroupTable";
+import AddDialog from "./components/AddDialog";
+import { Grid, Typography, Button } from "@mui/material";
+import ScoreTable from "./components/ScoreTable";
+import Box from '@material-ui/core/Box';
 
 export default function App() {
   const [datasetA, setDatasetA] = useState(new Map());
@@ -13,12 +14,9 @@ export default function App() {
   const [teamNameA, setTeamNameA] = useState([]);
   const [teamNameB, setTeamNameB] = useState([]);
 
-  useEffect(() => {
-    let testA = datasetA;
-    let testB = datasetB;
-    setDatasetA(testA);
-    setDatasetB(testB);
-  },[datasetA, datasetB])
+  //[1: teamA, 2: teamB, 3: teamC, 4: teamD, ...]
+  const [scoreTableA, setScoreTableA] = useState([]);
+  const [scoreTableB, setScoreTableB] = useState([]);
 
   //saves the teams into 2 sets of data based on groups
   const setTeam = (stringField) => {
@@ -34,10 +32,10 @@ export default function App() {
       if (groupNumber === '1') {
         newTeamNameA = [...newTeamNameA, teamName];
         //data will be accessed by the team name in O(1) time
-        newDatasetA.set(teamName, { date: teamDate, wins: 0, draws: 0, loss: 0, goals: 0 });
+        newDatasetA.set(teamName, { name: teamName, date: teamDate, wins: 0, draws: 0, loss: 0, goals: 0, score: 0 });
       } else if (groupNumber === '2') {
         newTeamNameB = [...newTeamNameB, teamName];
-        newDatasetB.set(teamName, { date: teamDate, wins: 0, draws: 0, loss: 0, goals: 0 });
+        newDatasetB.set(teamName, { name: teamName, date: teamDate, wins: 0, draws: 0, loss: 0, goals: 0, score: 0 });
       }
     })
     setDatasetA(newDatasetA);
@@ -57,7 +55,7 @@ export default function App() {
       let score1 = parseInt(teamScore[2]);
       let score2 = parseInt(teamScore[3]);
       if (teamNameA.includes(team1)) {
-        scoreDatasetA  = helper(scoreDatasetA, team1, team2, score1, score2);
+        scoreDatasetA = helper(scoreDatasetA, team1, team2, score1, score2);
       } else if (teamNameB.includes(team1)) {
         scoreDatasetB = helper(scoreDatasetB, team1, team2, score1, score2);
       } //throw error if name does not exist
@@ -75,22 +73,61 @@ export default function App() {
     if (score2 > score1) {
       team1Data.loss += 1;
       team2Data.wins += 1;
+      team2Data.score += 3;
     } else if (score1 > score2) {
       team2Data.loss += 1;
       team1Data.wins += 1;
+      team1Data.score += 3;
     } else {
       team1Data.draws += 1;
       team2Data.draws += 1;
+      team1Data.score += 1;
+      team2Data.score += 1;
     }
     return dataset;
   }
 
-  const evaluateScoreA = () => {
-
+  const convertDate = (d) => {
+    const [day, month] = d.split("/");
+    // subtract by one as JS date's months are zero-based
+    return new Date(2022, month -1 , day)
   }
 
-  const evaluateScoreB = () => {
+  function descendComparator(a, b) {
+    if (b.score < a.score) {
+      return -1;
+    } else if (b.score > a.score) {
+      return 1;
+    } else if (a.score == b.score) {
+      if (a.goals > b.goals) {
+        return -1;
+      } else if (a.goals < b.goals) {
+        return 1;
+      } else {
+        let scoreA = (a.wins * 5) + (a.loss) + (a.draws * 3);
+        let scoreB = (b.wins * 5) + (b.loss) + (b.draws * 3);
+        if (scoreA > scoreB) {
+          return -1;
+        } else if (scoreA < scoreB) {
+          return 1;
+        } else {
+          if (convertDate(a.date) > convertDate(b.date)) {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+      }
+    }
+  }
 
+  const evaluate = () => {
+    let scoreA = Array.from(datasetA.values());
+    let scoreB = Array.from(datasetB.values())
+    scoreA.sort(descendComparator);
+    scoreB.sort(descendComparator);
+    setScoreTableA(scoreA);
+    setScoreTableB(scoreB);
   }
 
   return (
@@ -99,15 +136,22 @@ export default function App() {
       <Grid container spacing={2}>
         <Grid item sm={6}>
           <GroupTable rows={datasetA} />
-          <Button variant="outlined" onClick={evaluateScoreA}> Evaluate A </Button>
+            <Typography variant="h6"> Evaluation </Typography>
+            <ScoreTable rows={scoreTableA} />
         </Grid>
         <Grid item sm={6}>
           <GroupTable rows={datasetB} />
-          <Button variant="outlined" onClick={evaluateScoreB}> Evaluate B </Button>
+            <Typography variant="h6"> Evaluation </Typography>
+            <ScoreTable rows={scoreTableB} />
         </Grid>
       </Grid>
-      <AddTableDialog action={setTeam} />
-      <AddScoreDialog action={setScore} />
+      <Box m={2} pt={3}>
+      <AddDialog action={setTeam} title={"Add Team"} />
+      </Box>
+      <AddDialog action={setScore} title={"Add Matches"} />
+      <Box m={2} pt={3}>
+      <Button variant="outlined" onClick={evaluate}> Evaluate</Button>
+      </Box>
     </div>
   )
 }

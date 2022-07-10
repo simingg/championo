@@ -6,37 +6,37 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextInput from './TextInput';
 
-export default function AddScoreDialog({ action }) {
+export default function AddDialog({ action , title }) {
     const [open, setOpen] = useState(false);
-    const [scores, setScores] = useState("");
+    const [field, setField] = useState("");
 
     const handleToggle = () => {
         setOpen(!open);
-        setScores("");
     }
 
-    const handleAddScore = () => {
-        action(scores);
+    const handleAddField = () => {
+        action(field);
         handleToggle();
+        setField("");
+        //add to group 1 data table
     }
-
 
     return (
         <div>
             <Button variant="outlined" onClick={handleToggle}>
-                Add Score
+                {title}
             </Button>
             <Dialog open={open} onClose={handleToggle}>
-                <DialogTitle>Add Score</DialogTitle>
+                <DialogTitle>{title}</DialogTitle>
                 <DialogContent>
                     <TextInput
-                        label={"Set Scores"}
-                        content={scores}
-                        action={setScores}
+                        label={title}
+                        content={field}
+                        action={setField}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleAddScore}>Add</Button>
+                    <Button onClick={handleAddField}>Add</Button>
                     <Button onClick={handleToggle}>Cancel</Button>
                 </DialogActions>
             </Dialog>

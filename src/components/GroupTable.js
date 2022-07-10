@@ -21,6 +21,7 @@ export default function GroupTable(props) {
                         <TableCell align="right"> Wins </TableCell>
                         <TableCell align="right"> Losses </TableCell>
                         <TableCell align="right"> Draws </TableCell>
+                        <TableCell align="right"> Score </TableCell>
 
                     </TableRow>
                 </TableHead>
@@ -40,6 +41,7 @@ export default function GroupTable(props) {
                                 <TableCell align="right">{value.wins}</TableCell>
                                 <TableCell align="right">{value.loss}</TableCell>
                                 <TableCell align="right">{value.draws}</TableCell>
+                                <TableCell align="right">{value.score}</TableCell>
                             </TableRow>
                         )
                     }
