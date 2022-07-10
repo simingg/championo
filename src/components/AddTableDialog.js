@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextInput from './TextInput';
 
-export default function AddTableDialog({ action, invalid }) {
+export default function AddTableDialog({ action }) {
     const [open, setOpen] = useState(false);
     const [teams, setTeams] = useState("");
 
