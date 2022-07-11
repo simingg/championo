@@ -53,6 +53,7 @@ export default function App() {
     window.location.reload(false);
   }
 
+  //takes in a string, split based on line and sets match results to its dataset respectively
   const setScore = (scoresField) => {
     let scoreDatasetA = datasetA;
     let scoreDatasetB = datasetB;
@@ -74,7 +75,7 @@ export default function App() {
     setDatasetB(scoreDatasetB);
     window.location.reload(false);
   }
-
+  //sorts array and set scoreboard data
   const evaluate = () => {
     let scoreA = Array.from(datasetA.values());
     let scoreB = Array.from(datasetB.values())
@@ -85,7 +86,7 @@ export default function App() {
     setScoreTableA(scoreA);
     setScoreTableB(scoreB);
   }
-
+  //clears all data
   const clearData = () => {
     window.localStorage.clear();
     setDatasetA(new Map());

@@ -1,4 +1,5 @@
-  //takes in the dataset of the group and adds scores respectively to the same map object
+  //updates the group's dataset with single match information
+  //dataset: Map, team1, team2: String, score1,score2: Integer
   export const helper = (dataset, team1, team2, score1, score2) => {
     const team1Data = dataset.get(team1);
     const team2Data = dataset.get(team2);
@@ -20,13 +21,14 @@
     }
     return dataset;
   }
-
+  //converts date in string to Date object for comparison
   export const convertDate = (d) => {
     const [day, month] = d.split("/");
     // subtract by one as JS date's months are zero-based
     return new Date(2022, month -1 , day)
   }
 
+  //sorts the array descendingly based on score, goals, alternate score and date
   export function descendComparator(a, b) {
     if (b.score < a.score) {
       return -1;

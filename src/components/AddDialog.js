@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextInput from './TextInput';
-export default function AddDialog({ action , title }) {
+export default function AddDialog({ action, title }) {
     const [open, setOpen] = useState(false);
     const [field, setField] = useState("");
 
@@ -22,7 +22,7 @@ export default function AddDialog({ action , title }) {
 
     return (
         <div>
-            <Button variant="outlined" style={{ marginLeft: "10px", marginBottom:"5px" }} onClick={handleToggle}>
+            <Button variant="outlined" style={{ marginLeft: "10px", marginBottom: "5px" }} onClick={handleToggle}>
                 {title}
             </Button>
             <Dialog open={open} onClose={handleToggle}>
