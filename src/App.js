@@ -6,7 +6,6 @@ import AddDialog from "./components/AddDialog";
 import { Grid, Typography, Button } from "@mui/material";
 import ScoreTable from "./components/ScoreTable";
 import { helper, descendComparator } from './utils';
-import ErrorModal from "./components/ErrorModal";
 
 export default function App() {
   //{teamName: {name: teamName, date: regDate, wins: 0, loss: 0, draws: 0, goals: 0}}
