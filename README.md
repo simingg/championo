@@ -12,3 +12,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### Intepretation:
 User will input the teams first before adding the score results for each team.
+
+### Notes:
+Comments for logic are in code.
+Tried to deploy server but ran into build errors. Included server.js file inside
