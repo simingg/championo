@@ -1,4 +1,9 @@
+Please ensure you have nodejs installed to run the application.
+To download : nodejs.org/en/download
+
 To view the application:
+In your terminal, run
+'git clone http://github.com/simingg/championo.git' to clone the repository.
 In the project directory, you can run:
 
 ### `npm install`
@@ -15,4 +20,3 @@ User will input the teams first before adding the score results for each team.
 
 ### Notes:
 Comments for logic are in code.
-Tried to deploy server but ran into build errors. Included server.js file inside
