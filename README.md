@@ -3,9 +3,10 @@ To download : nodejs.org/en/download
 
 To view the application:
 In your terminal, run
-'git clone http://github.com/simingg/championo.git' to clone the repository.
-In the project directory, you can run:
+`git clone https://github.com/simingg/championo.git`
+to clone the repository.
 
+In the project directory, you can run:
 ### `npm install`
 
 This installs the necessary packages to run the application. If faced with errors,
