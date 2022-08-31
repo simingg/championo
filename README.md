@@ -4,7 +4,7 @@ To download : nodejs.org/en/download
 To view the application:
 Visit
 
-[https://master.d323cmhb6m89hd.amplifyapp.com/(https://master.d323cmhb6m89hd.amplifyapp.com/) to view it in your browser.
+[site](https://master.d323cmhb6m89hd.amplifyapp.com/) to view it in your browser.
 
 ### Intepretation:
 Simple event organiser that keep track of results of scores and determine the current team rankings within each group.
